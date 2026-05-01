@@ -36,9 +36,37 @@ class Dish(models.Model):
         settings.AUTH_USER_MODEL,
         related_name="dishes"
     )
+    ingredients = models.ManyToManyField(
+        "Ingredient",
+        through="DishIngredient"
+    )
 
     class Meta:
         ordering = ("name", )
 
     def __str__(self):
         return self.name
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        ordering = ("name", )
+
+    def __str__(self):
+        return self.name
+
+
+class DishIngredient(models.Model):
+    dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=7, decimal_places=2)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["dish", "ingredient"],
+                name="unique_dish_ingredient"
+            )
+        ]
