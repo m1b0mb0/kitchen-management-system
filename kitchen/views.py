@@ -17,3 +17,9 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class IngredientListView(generic.ListView):
     model = Ingredient
+
+
+class DishTypeListView(generic.ListView):
+    model = DishType
+    context_object_name = "dish_type_list"
+    template_name = "kitchen/dish_type_list.html"
