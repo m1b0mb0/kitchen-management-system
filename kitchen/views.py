@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 from django.http import HttpRequest, HttpResponse
 
 from kitchen.models import Cook, DishType, Dish, Ingredient
@@ -12,3 +13,7 @@ def index(request: HttpRequest) -> HttpResponse:
         "num_ingredients": Ingredient.objects.count()
     }
     return render(request, "kitchen/index.html", context=context)
+
+
+class IngredientListView(generic.ListView):
+    model = Ingredient
