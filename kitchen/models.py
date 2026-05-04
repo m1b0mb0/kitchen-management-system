@@ -70,9 +70,18 @@ class Ingredient(models.Model):
 
 
 class DishIngredient(models.Model):
-    dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    dish = models.ForeignKey(
+        Dish,
+        on_delete=models.CASCADE,
+        related_name="dish_ingredients"
+    )
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        related_name="dish_ingredients"
+    )
     amount = models.DecimalField(max_digits=7, decimal_places=2)
+    unit = models.CharField(max_length=20)
 
     class Meta:
         constraints = [
