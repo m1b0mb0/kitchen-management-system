@@ -37,3 +37,7 @@ class DishDetailView(generic.DetailView):
     ).prefetch_related(
         "dish_ingredients__ingredient"
     )
+
+
+class CookListView(generic.ListView):
+    model = Cook
