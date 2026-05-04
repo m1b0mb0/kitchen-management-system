@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator
@@ -53,6 +54,9 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("kitchen:dish-detail", kwargs={"pk": self.pk})
 
 
 class Ingredient(models.Model):
