@@ -23,3 +23,8 @@ class DishTypeListView(generic.ListView):
     model = DishType
     context_object_name = "dish_type_list"
     template_name = "kitchen/dish_type_list.html"
+
+
+class DishListView(generic.ListView):
+    model = Dish
+    queryset = Dish.objects.select_related("dish_type")
