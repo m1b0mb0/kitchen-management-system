@@ -25,6 +25,10 @@
     </div>
     <div class="col-sm-10 ">
       {% block content %}{% endblock content %}
+
+      {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock pagination %}
     </div>
   </div>
 </div>
