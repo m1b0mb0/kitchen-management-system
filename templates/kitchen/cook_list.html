@@ -13,6 +13,7 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Years of experience</th>
+      <th>Update</th>
     </tr>
   {% for cook in cook_list %}
     <tr>
@@ -21,6 +22,9 @@
       <td>{{ cook.first_name }}</td>
       <td>{{ cook.last_name }}</td>
       <td>{{ cook.years_of_experience }}</td>
+      <td>
+        <a href="{% url 'kitchen:cook-update' pk=cook.id %}">Update</a>
+      </td>
     </tr>
   {% endfor %}
 
