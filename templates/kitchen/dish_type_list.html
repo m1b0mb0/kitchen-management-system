@@ -11,11 +11,15 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Update</th>
       </tr>
     {% for dish_type in dish_type_list %}
       <tr>
         <td>{{ dish_type.id }}</td>
         <td>{{ dish_type.name }}</td>
+        <td>
+          <a href="{% url 'kitchen:dish-type-update' pk=dish_type.id %}">Update</a>
+        </td>
       </tr>
     {% endfor %}
 
