@@ -8,8 +8,7 @@ from django.core.validators import MaxValueValidator
 class Cook(AbstractUser):
     years_of_experience = models.PositiveSmallIntegerField(
         validators=[MaxValueValidator(50)],
-        null=True,
-        blank=True
+        null=True
     )
 
     class Meta:
