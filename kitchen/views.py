@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from kitchen.models import Cook, DishType, Dish, Ingredient
-from kitchen.forms import CookCreationForm
+from kitchen.forms import CookCreationForm, CookUpdateForm
 
 
 @login_required
@@ -50,6 +50,11 @@ class DishDetailView(LoginRequiredMixin, generic.DetailView):
 class CookCreateView(LoginRequiredMixin, generic.CreateView):
     model = Cook
     form_class = CookCreationForm
+
+
+class CookUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Cook
+    form_class = CookUpdateForm
 
 
 class CookListView(LoginRequiredMixin, generic.ListView):
