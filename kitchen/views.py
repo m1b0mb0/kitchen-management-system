@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from kitchen.models import Cook, DishType, Dish, Ingredient
+from kitchen.forms import CookCreationForm
 
 
 @login_required
@@ -43,6 +44,12 @@ class DishDetailView(LoginRequiredMixin, generic.DetailView):
     ).prefetch_related(
         "dish_ingredients__ingredient"
     )
+
+
+
+class CookCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Cook
+    form_class = CookCreationForm
 
 
 class CookListView(LoginRequiredMixin, generic.ListView):
