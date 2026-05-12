@@ -31,6 +31,12 @@ class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("kitchen:ingredient-list")
 
 
+class IngredientUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:ingredient-list")
+
+
 class DishTypeListView(LoginRequiredMixin, generic.ListView):
     model = DishType
     context_object_name = "dish_type_list"
