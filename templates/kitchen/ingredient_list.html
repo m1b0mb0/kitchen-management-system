@@ -6,9 +6,21 @@
       Create
     </a>
   </h1>
-  <ul>
-    {% for ingredient in ingredient_list %}
-      <li>{{ ingredient.name }}</li>
-    {% endfor %}
-  </ul>
+  {% if ingredient_list %}
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+  {% for ingredient in ingredient_list %}
+    <tr>
+      <td>{{ ingredient.id }}</td>
+      <td>{{ ingredient.name }}</td>
+    </tr>
+  {% endfor %}
+
+  </table>
+  {% else %}
+    <p>There are no ingredients in the kitchen.</p>
+  {% endif %}
 {% endblock content %}
