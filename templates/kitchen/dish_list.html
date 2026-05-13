@@ -6,12 +6,26 @@
       Create
     </a>
   </h1>
-  <ul>
+  {% if dish_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Dish Type</th>
+        <th>Price</th>
+      </tr>
     {% for dish in dish_list %}
-      <li>
-        <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
-        ({{ dish.dish_type.name }}), price: {{ dish.price }}
-      </li>
+      <tr>
+        <td>{{ dish.id }}</td>
+        <td>
+          <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+        </td>
+        <td>{{ dish.dish_type }}</td>
+        <td>{{ dish.price }}</td>
+      </tr>
     {% endfor %}
-  </ul>
+    </table>
+  {% else %}
+    <p>There are no dishes.</p>
+  {% endif %}
 {% endblock content %}
