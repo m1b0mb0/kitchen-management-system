@@ -45,7 +45,6 @@ class IngredientUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class IngredientDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Ingredient
-    fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
 
 
@@ -65,7 +64,6 @@ class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class DishTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = DishType
-    fields = "__all__"
     template_name = "kitchen/dish_type_confirm_delete.html"
     success_url = reverse_lazy("kitchen:dish-type-list")
 
@@ -146,6 +144,11 @@ class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
             else:
                 return self.form_invalid(form)
         return redirect(self.success_url)
+
+
+class DishDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Dish
+    success_url = reverse_lazy("kitchen:dish-list")
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):
