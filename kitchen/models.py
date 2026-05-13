@@ -72,6 +72,13 @@ class Ingredient(models.Model):
 
 
 class DishIngredient(models.Model):
+    UNIT_CHOICES = [
+        ("g", "grams"),
+        ("kg", "kilograms"),
+        ("ml", "milliliters"),
+        ("pc", "pieces")
+    ]
+
     dish = models.ForeignKey(
         Dish,
         on_delete=models.CASCADE,
@@ -83,7 +90,11 @@ class DishIngredient(models.Model):
         related_name="dish_ingredients"
     )
     amount = models.DecimalField(max_digits=7, decimal_places=2)
-    unit = models.CharField(max_length=20)
+    unit = models.CharField(
+        max_length=20,
+        choices=UNIT_CHOICES,
+        default="g"
+    )
 
     class Meta:
         constraints = [
