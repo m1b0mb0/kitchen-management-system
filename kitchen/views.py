@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.db import transaction
@@ -109,6 +109,43 @@ class DishCreateView(LoginRequiredMixin, generic.CreateView):
             else:
                 return self.form_invalid(form)
         return super().form_valid(form)
+
+
+class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Dish
+    form_class = DishForm
+    success_url = reverse_lazy("kitchen:dish-list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.POST:
+            context["dish_ingredients"] = DishIngredientFormSet(
+                self.request.POST,
+                instance=self.object,
+                prefix="dish_ingredients"
+            )
+        else:
+            context["dish_ingredients"] = DishIngredientFormSet(
+                instance=self.object,
+                prefix="dish_ingredients"
+            )
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        dish_ingredients = context["dish_ingredients"]
+
+        with transaction.atomic():
+            self.object = form.save()
+
+            if dish_ingredients.is_valid():
+                dish_ingredients.instance = self.object
+                dish_ingredients.save()
+            else:
+                return self.form_invalid(form)
+        return redirect(self.success_url)
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):

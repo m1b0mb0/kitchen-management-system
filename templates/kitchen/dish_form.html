@@ -3,7 +3,7 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Create Dish</h1>
+  <h1>{{ object|yesno:"Update,Create" }} Dish</h1>
 
   <form method="post">
     {% csrf_token %}
