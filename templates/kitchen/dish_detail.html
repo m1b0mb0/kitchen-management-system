@@ -21,4 +21,13 @@
       <li>{{ di.ingredient.name }} - {{ di.amount }} {{ di.unit }}</li>
     {% endfor %}
   </ul>
+
+  <form action="{% url 'kitchen:cook-toggle-assign' pk=dish.pk %}" method="post">
+    {% csrf_token %}
+    {% if user in dish.cooks.all %}
+      <input type="submit" value="Remove me from this dish" class="btn btn-danger">
+    {% else %}
+      <input type="submit" value="Assign me to this dish" class="btn btn-success">
+    {% endif %}
+  </form>
 {% endblock %}
