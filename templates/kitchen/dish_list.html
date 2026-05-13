@@ -14,6 +14,7 @@
         <th>Dish Type</th>
         <th>Price</th>
         <th>Update</th>
+        <th>Delete</th>
       </tr>
     {% for dish in dish_list %}
       <tr>
@@ -25,6 +26,9 @@
         <td>{{ dish.price }}</td>
         <td>
           <a href="{% url 'kitchen:dish-update' pk=dish.id %}">Update</a>
+        </td>
+        <td>
+          <a href="{% url 'kitchen:dish-delete' pk=dish.id %}">Delete</a>
         </td>
       </tr>
     {% endfor %}
