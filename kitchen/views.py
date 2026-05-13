@@ -166,7 +166,6 @@ class DishDetailView(LoginRequiredMixin, generic.DetailView):
     )
 
 
-
 class CookCreateView(LoginRequiredMixin, generic.CreateView):
     model = Cook
     form_class = CookCreationForm
@@ -190,3 +189,15 @@ class CookListView(LoginRequiredMixin, generic.ListView):
 class CookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Cook
     queryset = Cook.objects.prefetch_related("dishes__dish_type")
+
+
+class ToggleCookAssignmentView(LoginRequiredMixin, generic.View):
+    def post(self, request, pk):
+        cook = self.request.user
+        dish = Dish.objects.get(id=pk)
+        if dish.cooks.filter(pk=cook.pk).exists():
+            dish.cooks.remove(cook)
+        else:
+            dish.cooks.add(cook)
+        
+        return redirect("kitchen:dish-detail", pk=dish.pk)

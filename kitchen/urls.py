@@ -20,6 +20,7 @@ from kitchen.views import (
     CookDeleteView,
     CookListView,
     CookDetailView,
+    ToggleCookAssignmentView,
 )
 
 urlpatterns = [
@@ -88,6 +89,11 @@ urlpatterns = [
         "dishes/<int:pk>/",
         DishDetailView.as_view(),
         name="dish-detail"
+    ),
+    path(
+        "dishes/<int:pk>/toggle-assign/",
+        ToggleCookAssignmentView.as_view(),
+        name="cook-toggle-assign"
     ),
     path(
         "cooks/create/",
