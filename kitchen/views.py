@@ -1,12 +1,18 @@
 from django.shortcuts import render
 from django.views import generic
 from django.urls import reverse_lazy
+from django.db import transaction
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from kitchen.models import Cook, DishType, Dish, Ingredient
-from kitchen.forms import CookCreationForm, CookUpdateForm
+from kitchen.forms import (
+    CookCreationForm,
+    CookUpdateForm,
+    DishForm,
+    DishIngredientFormSet
+)
 
 
 @login_required
@@ -69,6 +75,40 @@ class DishTypeListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "dish_type_list"
     template_name = "kitchen/dish_type_list.html"
     paginate_by = 5
+
+
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dish
+    form_class = DishForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.POST:
+            context["dish_ingredients"] = DishIngredientFormSet(
+                self.request.POST,
+                prefix="dish_ingredients"
+            )
+        else:
+            context["dish_ingredients"] = DishIngredientFormSet(
+                prefix="dish_ingredients"
+            )
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        dish_ingredients = context["dish_ingredients"]
+
+        with transaction.atomic():
+            self.object = form.save()
+
+            if dish_ingredients.is_valid():
+                dish_ingredients.instance = self.object
+                dish_ingredients.save()
+            else:
+                return self.form_invalid(form)
+        return super().form_valid(form)
 
 
 class DishListView(LoginRequiredMixin, generic.ListView):
