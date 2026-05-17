@@ -1,24 +1,50 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 
-{% block content %}
+{% block body_class %}auth-body{% endblock body_class %}
 
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+{% block layout %}
+  <main class="auth-page">
+    <section class="auth-panel">
+      <div class="auth-form-column">
+        <div class="auth-form-shell">
+          <p class="eyebrow">Kitchen workspace</p>
+          <h1>Sign In</h1>
+          <p class="auth-subtitle">Add your credentials to manage cooks, dishes, and ingredients.</p>
 
-<h1>Login</h1>
+          {% if form.errors %}
+            <div class="soft-alert" role="alert">
+              Your username and password did not match. Please try again.
+            </div>
+          {% endif %}
 
-{% if next %}
-  <p>Please login to see this page.</p>
-{% endif %}
+          {% if next %}
+            <div class="soft-alert soft-alert-info" role="alert">
+              Please sign in to continue to this page.
+            </div>
+          {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <br>
-  <input type="submit" value="Login" class="btn btn-primary" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
+          <form class="auth-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
 
-{% endblock %}
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+
+            <button class="soft-submit" type="submit">Sign in</button>
+            <input type="hidden" name="next" value="{{ next }}">
+          </form>
+        </div>
+      </div>
+
+      <div class="auth-hero" aria-label="Kitchen counter with ingredients">
+        <div class="auth-hero-overlay"></div>
+        <div class="auth-hero-content">
+          <p>Kitchen Manager</p>
+          <span>Organize every service with clarity.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock layout %}

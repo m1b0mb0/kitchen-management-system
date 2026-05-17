@@ -1,8 +1,201 @@
 body {
     margin-top: 20px;
+    background: #f8f9fb;
+    color: #252f40;
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 .link-to-page {
     float: right;
     margin: 0 2px 0 2px;
+}
+
+.auth-body {
+    margin: 0;
+    min-height: 100vh;
+    background: #fff;
+}
+
+.auth-page {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.soft-submit {
+    background: linear-gradient(135deg, #f3157f 0%, #8b28c9 100%);
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 10px 22px rgba(164, 38, 173, 0.28);
+    color: #fff !important;
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0;
+    padding: 12px 34px;
+    text-transform: uppercase;
+}
+
+.auth-panel {
+    display: grid;
+    grid-template-columns: minmax(360px, 45%) 1fr;
+    min-height: 100vh;
+}
+
+.auth-form-column {
+    align-items: center;
+    display: flex;
+    padding: 56px 48px;
+}
+
+.auth-form-shell {
+    max-width: 430px;
+    width: 100%;
+}
+
+.eyebrow {
+    color: #f3157f;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.auth-form-shell h1 {
+    color: #1f2937;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    color: #67748e;
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+}
+
+.auth-form {
+    display: grid;
+    gap: 14px;
+}
+
+.auth-form label {
+    color: #344767;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: -6px;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    background: #fff;
+    border: 1px solid #d9dee8;
+    border-radius: 9px;
+    box-shadow: 0 2px 8px rgba(37, 47, 64, 0.04);
+    color: #344767;
+    min-height: 54px;
+    padding: 0 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="password"]:focus {
+    border-color: #f3157f;
+    box-shadow: 0 0 0 4px rgba(243, 21, 127, 0.12);
+    outline: 0;
+}
+
+.soft-submit {
+    margin-top: 8px;
+    min-height: 54px;
+    width: 100%;
+}
+
+.soft-alert {
+    background: #fff4f8;
+    border: 1px solid #ffd0e3;
+    border-radius: 12px;
+    color: #b5165f;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+}
+
+.soft-alert-info {
+    background: #f4f8ff;
+    border-color: #d7e5ff;
+    color: #2f5fbc;
+}
+
+.auth-hero {
+    align-items: center;
+    background:
+        linear-gradient(135deg, rgba(241, 27, 124, 0.78), rgba(116, 45, 195, 0.82)),
+        url("https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1600&q=80");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.auth-hero::before {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 48px 48px;
+    content: "";
+    inset: 0;
+    opacity: 0.18;
+    position: absolute;
+}
+
+.auth-hero-overlay {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent 38%);
+    inset: 0;
+    position: absolute;
+}
+
+.auth-hero-content {
+    color: #fff;
+    margin-top: auto;
+    padding: 0 40px 44px;
+    position: relative;
+    text-align: center;
+    text-shadow: 0 3px 22px rgba(0, 0, 0, 0.24);
+}
+
+.auth-hero-content p {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.auth-hero-content span {
+    font-size: 1rem;
+    opacity: 0.88;
+}
+
+@media (max-width: 900px) {
+    .auth-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-form-column {
+        min-height: 100vh;
+        padding: 48px 24px;
+    }
+
+    .auth-hero {
+        display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    .auth-form-shell h1 {
+        font-size: 1.75rem;
+    }
 }
