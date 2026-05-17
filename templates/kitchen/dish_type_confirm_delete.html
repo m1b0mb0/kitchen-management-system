@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Delete dish type?</h1>
-  <form action="" method="post">
-    {% csrf_token %}
+  <section class="page-shell form-page-shell">
+    <div class="confirm-card">
+      <p class="eyebrow">Confirm deletion</p>
+      <h1>Delete dish type?</h1>
+      <p>This category will be removed from the menu structure.</p>
 
-    <input type="submit" value="Yes" class="btn btn-danger">
-    <a class="btn btn-primary" href="{{ request.META.HTTP_REFERER }}">Cancel</a>
-  </form>
+      <form action="" method="post" class="form-actions">
+        {% csrf_token %}
+        <button type="submit" class="soft-action danger-action">Delete type</button>
+        <a class="soft-action secondary-action" href="{% url 'kitchen:dish-type-list' %}">Cancel</a>
+      </form>
+    </div>
+  </section>
 {% endblock content %}

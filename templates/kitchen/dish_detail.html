@@ -1,33 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    {{ dish.name }}
-  </h1>
-  <p>Dish Type: {{ dish.dish_type.name }}</p>
-  <p>Price: {{ dish.price }}</p>
-  <p>{{ dish.description }}</p>
-  <h1>Cooks</h1>
-  <hr>
-  <ul>
-    {% for cook in dish.cooks.all %}
-      <li>{{ cook.username }} ({{ cook.first_name }} {{ cook.last_name }})</li>
-    {% endfor %}
-  </ul>
-  <h1>Ingredients</h1>
-  <hr>
-  <ul>
-    {% for di in dish.dish_ingredients.all %}
-      <li>{{ di.ingredient.name }} - {{ di.amount }} {{ di.unit }}</li>
-    {% endfor %}
-  </ul>
+  <section class="page-shell">
+    <div class="detail-hero dish-detail-hero">
+      <div>
+        <p class="eyebrow light">{{ dish.dish_type.name }}</p>
+        <h1>{{ dish.name }}</h1>
+        <p>{{ dish.description|default:"No description added yet." }}</p>
+      </div>
+      <div class="price-chip">${{ dish.price }}</div>
+    </div>
 
-  <form action="{% url 'kitchen:cook-toggle-assign' pk=dish.pk %}" method="post">
-    {% csrf_token %}
-    {% if user in dish.cooks.all %}
-      <input type="submit" value="Remove me from this dish" class="btn btn-danger">
-    {% else %}
-      <input type="submit" value="Assign me to this dish" class="btn btn-success">
-    {% endif %}
-  </form>
+    <div class="detail-grid">
+      <article class="detail-card">
+        <div class="card-title-row">
+          <h2>Cooks</h2>
+          <form action="{% url 'kitchen:cook-toggle-assign' pk=dish.pk %}" method="post">
+            {% csrf_token %}
+            {% if user in dish.cooks.all %}
+              <button type="submit" class="soft-action danger-action">Remove me</button>
+            {% else %}
+              <button type="submit" class="soft-action">Assign me</button>
+            {% endif %}
+          </form>
+        </div>
+
+        <div class="soft-list">
+          {% for cook in dish.cooks.all %}
+            <a href="{{ cook.get_absolute_url }}" class="soft-list-item">
+              <span>{{ cook.username }}</span>
+              <small>{{ cook.first_name }} {{ cook.last_name }}</small>
+            </a>
+          {% empty %}
+            <div class="empty-state slim-empty">
+              <h2>No cooks assigned</h2>
+              <p>Add a cook so the team knows who owns this dish.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+
+      <article class="detail-card">
+        <h2>Ingredients</h2>
+        <div class="soft-list">
+          {% for di in dish.dish_ingredients.all %}
+            <div class="soft-list-item">
+              <span>{{ di.ingredient.name }}</span>
+              <small>{{ di.amount }} {{ di.unit }}</small>
+            </div>
+          {% empty %}
+            <div class="empty-state slim-empty">
+              <h2>No ingredients listed</h2>
+              <p>Add ingredients to complete this recipe.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+    </div>
+  </section>
 {% endblock %}

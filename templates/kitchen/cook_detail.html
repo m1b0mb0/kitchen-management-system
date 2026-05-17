@@ -1,26 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    Username: {{ cook.username }}
-  </h1>
+  <section class="page-shell">
+    <div class="detail-hero">
+      <div>
+        <p class="eyebrow light">Cook profile</p>
+        <h1>{{ cook.username }}</h1>
+        <p>{{ cook.first_name|default:"Kitchen" }} {{ cook.last_name|default:"team member" }}</p>
+      </div>
+      <div class="detail-actions">
+        <a class="soft-action secondary-action" href="{% url 'kitchen:cook-update' pk=cook.id %}">Update</a>
+        <a class="soft-action danger-action" href="{% url 'kitchen:cook-delete' pk=cook.id %}">Delete</a>
+      </div>
+    </div>
 
-  <p><strong>First name:</strong> {{ cook.first_name }}</p>
-  <p><strong>Last name:</strong> {{ cook.last_name }}</p>
-  <p><strong>Years of experience:</strong> {{ cook.years_of_experience }}</p>
-  <p><strong>Is staff:</strong> {{ cook.is_staff }}</p>
+    <div class="detail-grid">
+      <article class="detail-card">
+        <h2>Profile</h2>
+        <dl class="soft-definition-list">
+          <div>
+            <dt>First name</dt>
+            <dd>{{ cook.first_name|default:"-" }}</dd>
+          </div>
+          <div>
+            <dt>Last name</dt>
+            <dd>{{ cook.last_name|default:"-" }}</dd>
+          </div>
+          <div>
+            <dt>Experience</dt>
+            <dd>
+              {% if cook.years_of_experience %}
+                {{ cook.years_of_experience }} years
+              {% else %}
+                -
+              {% endif %}
+            </dd>
+          </div>
+          <div>
+            <dt>Staff access</dt>
+            <dd>{{ cook.is_staff|yesno:"Yes,No" }}</dd>
+          </div>
+        </dl>
+      </article>
 
-  <div class="ml-3">
-    <h4>Dishes</h4>
-
-    {% for dish in cook.dishes.all %}
-        <hr>
-        <p><strong>Name:</strong> {{ dish.name }}</p>
-        <p><strong>Dish Type:</strong> {{ dish.dish_type.name }}</p>
-        <p class="text-muted"><strong>Id:</strong> {{dish.id}}</p>
-
-    {% empty %}
-      <p>No dishes!</p>
-    {% endfor %}
-  </div>
+      <article class="detail-card">
+        <h2>Assigned dishes</h2>
+        <div class="soft-list">
+          {% for dish in cook.dishes.all %}
+            <a href="{{ dish.get_absolute_url }}" class="soft-list-item">
+              <span>{{ dish.name }}</span>
+              <small>{{ dish.dish_type.name }} - #{{ dish.id }}</small>
+            </a>
+          {% empty %}
+            <div class="empty-state slim-empty">
+              <h2>No dishes yet</h2>
+              <p>This cook is not assigned to any dish.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+    </div>
+  </section>
 {% endblock %}

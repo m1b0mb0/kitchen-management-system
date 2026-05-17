@@ -3,11 +3,23 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>{{ object|yesno:"Update,Create" }} Dish Type</h1>
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
+  <section class="page-shell form-page-shell">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Menu structure</p>
+        <h1>{{ object|yesno:"Update,Create" }} Dish Type</h1>
+        <p>Group dishes into clear categories for faster menu browsing.</p>
+      </div>
+    </div>
 
-    <input type="submit" value="Submit" class="btn btn-primary">
-  </form>
+    <form action="" method="post" class="form-card">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <div class="form-actions">
+        <button type="submit" class="soft-action">Save type</button>
+        <a href="{% url 'kitchen:dish-type-list' %}" class="soft-action secondary-action">Cancel</a>
+      </div>
+    </form>
+  </section>
 {% endblock content %}
