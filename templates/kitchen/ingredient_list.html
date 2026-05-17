@@ -1,37 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Ingredient List
-    <a href="{% url 'kitchen:ingredient-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
+  <section class="page-shell">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Kitchen inventory</p>
+        <h1>Ingredients</h1>
+        <p>Track products used across dishes and keep recipe composition consistent.</p>
+      </div>
+      <a href="{% url 'kitchen:ingredient-create' %}" class="soft-action">Create ingredient</a>
+    </div>
 
-  {% include "includes/search_form.html" %}
+    <div class="table-card">
+      {% include "includes/search_form.html" %}
 
-  {% if ingredient_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
-    {% for ingredient in ingredient_list %}
-      <tr>
-        <td>{{ ingredient.id }}</td>
-        <td>{{ ingredient.name }}</td>
-        <td>
-          <a href="{% url 'kitchen:ingredient-update' pk=ingredient.id %}">Update</a>
-        </td>
-        <td>
-          <a href="{% url 'kitchen:ingredient-delete' pk=ingredient.id %}">Delete</a>
-        </td>
-      </tr>
-    {% endfor %}
-
-    </table>
-  {% else %}
-    <p>There are no ingredients in the kitchen.</p>
-  {% endif %}
+      {% if ingredient_list %}
+        <div class="table-responsive">
+          <table class="table soft-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ingredient in ingredient_list %}
+                <tr>
+                  <td>#{{ ingredient.id }}</td>
+                  <td>{{ ingredient.name }}</td>
+                  <td class="table-actions">
+                    <a href="{% url 'kitchen:ingredient-update' pk=ingredient.id %}">Update</a>
+                    <a class="danger-link" href="{% url 'kitchen:ingredient-delete' pk=ingredient.id %}">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <h2>No ingredients yet</h2>
+          <p>Add the first product to start building dish recipes.</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
 {% endblock content %}

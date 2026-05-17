@@ -1,42 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Dish List
-    <a href="{% url 'kitchen:dish-create' %}" class="btn btn-primary link-to-page">
-      Create
-    </a>
-  </h1>
+  <section class="page-shell">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Menu catalog</p>
+        <h1>Dishes</h1>
+        <p>Browse recipes, prices, categories, and assigned kitchen staff.</p>
+      </div>
+      <a href="{% url 'kitchen:dish-create' %}" class="soft-action">Create dish</a>
+    </div>
 
-  {% include "includes/search_form.html" %}
+    <div class="table-card">
+      {% include "includes/search_form.html" %}
 
-  {% if dish_list %}
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Dish Type</th>
-        <th>Price</th>
-        <th>Update</th>
-        <th>Delete</th>
-      </tr>
-    {% for dish in dish_list %}
-      <tr>
-        <td>{{ dish.id }}</td>
-        <td>
-          <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
-        </td>
-        <td>{{ dish.dish_type }}</td>
-        <td>{{ dish.price }}</td>
-        <td>
-          <a href="{% url 'kitchen:dish-update' pk=dish.id %}">Update</a>
-        </td>
-        <td>
-          <a href="{% url 'kitchen:dish-delete' pk=dish.id %}">Delete</a>
-        </td>
-      </tr>
-    {% endfor %}
-    </table>
-  {% else %}
-    <p>There are no dishes.</p>
-  {% endif %}
+      {% if dish_list %}
+        <div class="table-responsive">
+          <table class="table soft-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Dish Type</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for dish in dish_list %}
+                <tr>
+                  <td>#{{ dish.id }}</td>
+                  <td>
+                    <a class="table-main-link" href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+                  </td>
+                  <td>{{ dish.dish_type }}</td>
+                  <td>${{ dish.price }}</td>
+                  <td class="table-actions">
+                    <a href="{% url 'kitchen:dish-update' pk=dish.id %}">Update</a>
+                    <a class="danger-link" href="{% url 'kitchen:dish-delete' pk=dish.id %}">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <h2>No dishes yet</h2>
+          <p>Create the first dish and connect it with ingredients and cooks.</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
 {% endblock content %}
