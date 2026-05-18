@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="home-hero">
+    <div class="home-hero-overlay"></div>
+    <div class="home-hero-content">
+      <p class="eyebrow light">Kitchen operations</p>
+      <h1>Kitchen Manager</h1>
+      <p>Plan menus, organize ingredients, and keep every cook aligned before service starts.</p>
+    </div>
+  </section>
+
+  <section class="home-stats" aria-label="Kitchen statistics">
+    <article class="stat-card">
+      <strong>{{ num_cooks }}</strong>
+      <h2>Cooks</h2>
+      <p>Team members ready for assignments and dish preparation.</p>
+    </article>
+
+    <article class="stat-card">
+      <strong>{{ num_dish_types }}</strong>
+      <h2>Dish Types</h2>
+      <p>Menu categories that keep the kitchen catalog easy to scan.</p>
+    </article>
+
+    <article class="stat-card">
+      <strong>{{ num_dishes }}</strong>
+      <h2>Dishes</h2>
+      <p>Recipes and menu items connected to cooks and ingredients.</p>
+    </article>
+
+    <article class="stat-card">
+      <strong>{{ num_ingredients }}</strong>
+      <h2>Ingredients</h2>
+      <p>Core products tracked for accurate dish composition.</p>
+    </article>
+  </section>
+{% endblock content %}

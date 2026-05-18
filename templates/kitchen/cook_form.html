@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <section class="page-shell form-page-shell">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Kitchen team</p>
+        <h1>{{ object|yesno:"Update,Create" }} Cook</h1>
+        <p>Keep cook profiles accurate for assignments and kitchen planning.</p>
+      </div>
+    </div>
+
+    <form action="" method="post" class="form-card">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <div class="form-actions">
+        <button type="submit" class="soft-action">Save cook</button>
+        <a href="{% url 'kitchen:cook-list' %}" class="soft-action secondary-action">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock content %}

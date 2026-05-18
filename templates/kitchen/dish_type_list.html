@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="page-shell">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Menu structure</p>
+        <h1>Dish Types</h1>
+        <p>Keep menu categories organized so dishes are easy to find and compare.</p>
+      </div>
+      <a href="{% url 'kitchen:dish-type-create' %}" class="soft-action">Create type</a>
+    </div>
+
+    <div class="table-card">
+      {% include "includes/search_form.html" %}
+
+      {% if dish_type_list %}
+        <div class="table-responsive">
+          <table class="table soft-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for dish_type in dish_type_list %}
+                <tr>
+                  <td>#{{ dish_type.id }}</td>
+                  <td>{{ dish_type.name }}</td>
+                  <td class="table-actions">
+                    <a href="{% url 'kitchen:dish-type-update' pk=dish_type.id %}">Update</a>
+                    <a class="danger-link" href="{% url 'kitchen:dish-type-delete' pk=dish_type.id %}">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <h2>No dish types yet</h2>
+          <p>Add categories such as soups, desserts, mains, or drinks.</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endblock content %}

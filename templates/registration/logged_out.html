@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block sidebar %}{% endblock sidebar %}
+
+{% block content %}
+  <section class="page-shell form-page-shell">
+    <div class="confirm-card">
+      <p class="eyebrow">Session ended</p>
+      <h1>You are logged out</h1>
+      <p>Sign in again when you are ready to manage the kitchen.</p>
+      <a href="{% url 'login' %}" class="soft-action">Back to sign in</a>
+    </div>
+  </section>
+{% endblock content %}

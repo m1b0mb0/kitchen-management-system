@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="page-shell form-page-shell">
+    <div class="confirm-card">
+      <p class="eyebrow">Confirm deletion</p>
+      <h1>Delete ingredient?</h1>
+      <p>This product will be removed from your kitchen inventory.</p>
+
+      <form action="" method="post" class="form-actions">
+        {% csrf_token %}
+        <button type="submit" class="soft-action danger-action">Delete ingredient</button>
+        <a class="soft-action secondary-action" href="{% url 'kitchen:ingredient-list' %}">Cancel</a>
+      </form>
+    </div>
+  </section>
+{% endblock content %}
