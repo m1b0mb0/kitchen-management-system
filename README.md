@@ -6,6 +6,14 @@ A Django web application for managing everyday kitchen operations in a restauran
 
 ![Kitchen Management System dashboard preview](demo.png)
 
+## Live Demo
+
+Deployed site: https://kitchenmanager.onrender.com
+
+Test user:
+- Login: admin
+- Password: !>c9A2,9|8i1
+
 ## Features
 
 - Authentication-protected kitchen management pages
